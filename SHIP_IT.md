@@ -40,6 +40,9 @@ make launch-slurm
 
 # optional controlled subset
 make launch-slurm EXPERIMENT_IDS="Exp1 Exp2 Exp3 G1" MAX_VARIANTS_PER_EXP=1
+
+# MIT convenience target (login-node friendly; submits to mit_normal_gpu with 1 GPU / 8 CPU)
+make launch-mit-gpu
 ```
 
 Resource overrides example:
@@ -48,10 +51,10 @@ Resource overrides example:
 PARTITION=gpu ACCOUNT=<acct> QOS=<qos> GPUS=1 CPUS=8 MEM=32G TIME_LIMIT=04:00:00 make launch-slurm
 ```
 
-Calibration-style direct launch example:
+MIT target overrides example:
 
 ```bash
-SEEDS="11" MODE=slurm DEVICE=cuda PARTITION=mit_normal_gpu GPUS=1 CPUS=8 MEM=32G TIME_LIMIT=06:00:00 DATA_ROOT="$PWD/data" OUT_ROOT="$PWD/outputs/runs" ./run_all_experiments.sh
+MIT_TIME_LIMIT=08:00:00 MIT_MEM=48G make launch-mit-gpu
 ```
 
 Optional OOM retry profile (across relaunches):

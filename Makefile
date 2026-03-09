@@ -6,7 +6,15 @@ EXPERIMENT_IDS ?=
 MAX_VARIANTS_PER_EXP ?= 0
 REQUIRE_TORCH ?= 0
 
-.PHONY: bootstrap preflight preflight-slurm build-matrix launch-local launch-slurm slurm-dry-run release-check-live status status-json analysis package validate-syntax validate-config validate-status validate-analysis validate-bundle validate-handoff validate-jobs validate-gpu-smoke test-jobid mini-run release-check sample-proof
+# MIT cluster convenience defaults (override at invocation if needed)
+MIT_PARTITION ?= mit_normal_gpu
+MIT_GPUS ?= 1
+MIT_CPUS ?= 8
+MIT_MEM ?= 32G
+MIT_TIME_LIMIT ?= 06:00:00
+MIT_REQUIRE_GPU ?= 0
+
+.PHONY: bootstrap preflight preflight-slurm build-matrix launch-local launch-slurm launch-mit-gpu slurm-dry-run release-check-live status status-json analysis package validate-syntax validate-config validate-status validate-analysis validate-bundle validate-handoff validate-jobs validate-gpu-smoke test-jobid mini-run release-check sample-proof
 
 bootstrap:
 	bash scripts/bootstrap_env.sh
@@ -25,6 +33,10 @@ launch-local:
 
 launch-slurm:
 	MODE=slurm REQUIRE_GPU=1 OUT_ROOT="$(OUT_ROOT)" EXPERIMENT_IDS="$(EXPERIMENT_IDS)" MAX_VARIANTS_PER_EXP="$(MAX_VARIANTS_PER_EXP)" REQUIRE_TORCH="$(REQUIRE_TORCH)" ./run_all_experiments.sh
+
+# Convenience target for MIT GPU partition from login nodes (no local GPU required)
+launch-mit-gpu:
+	MODE=slurm REQUIRE_GPU="$(MIT_REQUIRE_GPU)" DEVICE=cuda PARTITION="$(MIT_PARTITION)" GPUS="$(MIT_GPUS)" CPUS="$(MIT_CPUS)" MEM="$(MIT_MEM)" TIME_LIMIT="$(MIT_TIME_LIMIT)" OUT_ROOT="$(OUT_ROOT)" EXPERIMENT_IDS="$(EXPERIMENT_IDS)" MAX_VARIANTS_PER_EXP="$(MAX_VARIANTS_PER_EXP)" REQUIRE_TORCH="$(REQUIRE_TORCH)" ./run_all_experiments.sh
 
 slurm-dry-run:
 	rm -f outputs/slurm/submitted_jobs.tsv

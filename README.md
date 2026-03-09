@@ -35,6 +35,10 @@ make preflight-slurm
 # launches all configured runs through SLURM
 make launch-slurm
 
+# MIT convenience target (partition=mit_normal_gpu, GPUS=1, CPUS=8)
+# designed for login-node submission where local GPU checks may fail
+make launch-mit-gpu
+
 # observability
 make status
 make status-json
@@ -94,10 +98,16 @@ Example subset run:
 make launch-slurm EXPERIMENT_IDS="Exp1 Exp2 Exp3 G1" MAX_VARIANTS_PER_EXP=1
 ```
 
-Cluster-style direct launch example:
+MIT convenience target (equivalent to partition=`mit_normal_gpu`, `GPUS=1`, `CPUS=8`, `MEM=32G`, `TIME_LIMIT=06:00:00`, `REQUIRE_GPU=0`):
 
 ```bash
-SEEDS="11" MODE=slurm DEVICE=cuda PARTITION=mit_normal_gpu GPUS=1 CPUS=8 MEM=32G TIME_LIMIT=06:00:00 DATA_ROOT="$PWD/data" OUT_ROOT="$PWD/outputs/runs" ./run_all_experiments.sh
+make launch-mit-gpu
+```
+
+Optional overrides:
+
+```bash
+MIT_TIME_LIMIT=08:00:00 MIT_MEM=48G make launch-mit-gpu
 ```
 
 ### Exp13–Exp16 fidelity tiers
