@@ -1,0 +1,42 @@
+defaults:
+  n: 60
+  d: 8
+  m: 3
+  epsilon: 0.05
+  lambda_val: 0.6
+  steps: 240
+  w_hold: 2
+  model: USA
+  beta: 8.0
+  h: 0.5
+  seeds: [11]
+
+experiments:
+  Exp13:
+    desc: trained tiny transformer on clustered task (full-fidelity Stage-B)
+    sweeps:
+      train_mode: [full]
+      seq_len: [24]
+      train_steps: [120]
+      probe_depth: [4]
+
+  Exp14:
+    desc: residual scale tradeoff in trained tiny transformer (full-fidelity Stage-B)
+    sweeps:
+      train_mode: [full]
+      residual_scale: [0.5, 1.0, 2.0]
+      train_steps: [120]
+
+  Exp15:
+    desc: sink behavior in trained tiny transformer (full-fidelity Stage-B)
+    sweeps:
+      train_mode: [full]
+      sink_mode: [on, off]
+      train_steps: [120]
+
+  Exp16:
+    desc: residual/gating ablation in trained tiny transformer (full-fidelity Stage-B)
+    sweeps:
+      train_mode: [full]
+      residual_mode: [standard, scalar, gated]
+      train_steps: [120]

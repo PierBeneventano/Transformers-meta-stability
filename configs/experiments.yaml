@@ -1,0 +1,126 @@
+defaults:
+  n: 60
+  d: 8
+  m: 3
+  epsilon: 0.05
+  lambda_val: 0.6
+  steps: 240
+  w_hold: 3
+  model: USA
+  beta: 8.0
+  h: 0.5
+  seeds: [11]
+
+experiments:
+  Exp1:
+    desc: visualization of discrete metastability
+    sweeps:
+      model: [SA, USA]
+      beta: [8.0]
+      h: [0.5]
+
+  Exp2:
+    desc: escape-depth scale
+    sweeps:
+      beta: [6.0, 10.0]
+      h: [0.25, 1.0]
+      alpha_target: [0.2, 0.4]
+
+  Exp3:
+    desc: entrance-depth scale
+    sweeps:
+      beta: [6.0, 10.0]
+      h: [0.25, 1.0]
+      lambda_val: [0.5, 0.8]
+
+  Exp4:
+    desc: propagation of smallness barrier
+    sweeps:
+      barrier_regime: [valid, invalid]
+      beta: [10.0]
+      h: [0.5]
+
+  Exp5:
+    desc: energetic theorem versus direct theorem
+    sweeps:
+      compare_mode: [energetic_vs_direct]
+      beta: [8.0]
+      h: [0.5]
+
+  Exp6:
+    desc: raw budget versus contraction budget
+    sweeps:
+      schedule: [matched_S, matched_C]
+      beta: [8.0]
+
+  Exp7:
+    desc: optimal constant step
+    sweeps:
+      h: [0.125, 0.25, 0.5, 1.0, 2.0]
+      beta: [8.0]
+
+  Exp8:
+    desc: two-phase schedules
+    sweeps:
+      schedule: [const_small, const_moderate, const_large, two_phase]
+      beta: [8.0]
+
+  Exp9:
+    desc: deformed query-key geometry
+    sweeps:
+      geometry: [euclidean, gmetric]
+      g_scale: [1.0, 2.5]
+
+  Exp10:
+    desc: value-output contraction versus shear
+    sweeps:
+      value_map: [identity, contractive, shear, rotation]
+
+  Exp11:
+    desc: mask ablations
+    sweeps:
+      mask: [full, causal, window, block_sparse_center]
+
+  Exp12:
+    desc: normalization effects
+    sweeps:
+      normalization: [none, spherical, layernorm, rmsnorm]
+
+  Exp13:
+    desc: trained tiny transformer (Stage-A surrogate; Stage-B full available in configs/experiments_full_fidelity.yaml)
+    sweeps:
+      train_mode: [surrogate]
+      probe_depth: [8]
+
+  Exp14:
+    desc: depth-efficiency versus residual scale (Stage-A surrogate; Stage-B full available)
+    sweeps:
+      train_mode: [surrogate]
+      residual_scale: [0.5, 1.0, 2.0]
+
+  Exp15:
+    desc: attention sinks and perturbation (Stage-A surrogate; Stage-B full available)
+    sweeps:
+      train_mode: [surrogate]
+      sink_mode: ['on', 'off']
+
+  Exp16:
+    desc: skip/gating ablation (Stage-A surrogate; Stage-B full available)
+    sweeps:
+      train_mode: [surrogate]
+      residual_mode: [standard, scalar, gated]
+
+  G1:
+    desc: random/non-separated baseline
+    sweeps:
+      init_mode: [random]
+
+  G2:
+    desc: initialization spread sensitivity
+    sweeps:
+      epsilon: [0.02, 0.05, 0.10]
+
+  G3:
+    desc: finite-size n effects
+    sweeps:
+      n: [30, 60, 120]

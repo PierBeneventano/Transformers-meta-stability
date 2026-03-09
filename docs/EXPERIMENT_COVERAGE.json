@@ -1,0 +1,711 @@
+{
+  "schema_version": "v1",
+  "source": {
+    "paper": "Transformers.tex",
+    "canonical_set": [
+      "Exp1",
+      "Exp2",
+      "Exp3",
+      "Exp4",
+      "Exp5",
+      "Exp6",
+      "Exp7",
+      "Exp8",
+      "Exp9",
+      "Exp10",
+      "Exp11",
+      "Exp12",
+      "Exp13",
+      "Exp14",
+      "Exp15",
+      "Exp16",
+      "G1",
+      "G2",
+      "G3"
+    ],
+    "spec_path": "docs/EXPERIMENT_SPEC.md",
+    "spec_sha256": "8a3f070306562daa139f8c3ce11ea86799f7d7c3a914fdaebc592458cad3d86d",
+    "frozen": true
+  },
+  "summary": {
+    "complete": 15,
+    "partial": 4,
+    "missing": 0,
+    "total": 19
+  },
+  "items": [
+    {
+      "id": "Exp1",
+      "title": "Visualization of discrete metastability",
+      "status": "complete",
+      "implemented_paths": [
+        "scripts/run_experiment.py:block_metrics",
+        "scripts/run_analysis_pipeline.py"
+      ],
+      "acceptance_criteria": [
+        "Generate 3-panel figure per theorem spec (in-cluster contraction, block persistence, late escape/merger)",
+        "Track eta_q^k, rho_q^k, in-cluster diameter, inter-cluster separation over depth"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp1_run>/config.json",
+          "outputs/runs/<Exp1_run>/metrics.csv",
+          "outputs/runs/<Exp1_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_exp1_metastability_panels.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp1"
+      ]
+    },
+    {
+      "id": "Exp2",
+      "title": "Escape-depth scaling",
+      "status": "complete",
+      "implemented_paths": [
+        "scripts/run_experiment.py:k_esc_emp",
+        "scripts/run_analysis_pipeline.py:fig_escape_scaling.png"
+      ],
+      "acceptance_criteria": [
+        "Control alpha, beta, h independently",
+        "Fit/log-plot log(K_esc) vs (1-alpha)beta-log h with slope diagnostics"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp2_run>/config.json",
+          "outputs/runs/<Exp2_run>/metrics.csv",
+          "outputs/runs/<Exp2_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_exp2_escape_scaling.png",
+          "analysis/figs/fig_exp2_escape_scaling.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp2"
+      ]
+    },
+    {
+      "id": "Exp3",
+      "title": "Entrance-depth scaling",
+      "status": "complete",
+      "implemented_paths": [
+        "scripts/run_experiment.py:k_ent_emp",
+        "scripts/run_analysis_pipeline.py:fig_entrance_scaling.png"
+      ],
+      "acceptance_criteria": [
+        "Evaluate multiple lambda thresholds",
+        "Report K_ent*h vs exp(8*epsilon*beta) with uncertainty"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp3_run>/config.json",
+          "outputs/runs/<Exp3_run>/metrics.csv",
+          "outputs/runs/<Exp3_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_exp3_entrance_scaling.png",
+          "analysis/figs/fig_exp3_entrance_scaling.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp3"
+      ]
+    },
+    {
+      "id": "Exp4",
+      "title": "Propagation of smallness barrier test",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Construct paired regimes satisfying/violating barrier inequality",
+        "Track rho_q^k barrier crossing outcomes"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp4_run>/config.json",
+          "outputs/runs/<Exp4_run>/metrics.csv",
+          "outputs/runs/<Exp4_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp4_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp4"
+      ]
+    },
+    {
+      "id": "Exp5",
+      "title": "Energetic theorem vs direct theorem",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Compute energetic distance to slow manifold and direct cap metrics on same trajectories",
+        "Compare qualitative vs sharp window lengths"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp5_run>/config.json",
+          "outputs/runs/<Exp5_run>/metrics.csv",
+          "outputs/runs/<Exp5_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp5_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp5"
+      ]
+    },
+    {
+      "id": "Exp6",
+      "title": "Raw budget vs contraction budget (S_K vs C_K)",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Support variable step schedule h_k",
+        "Construct matched-S and matched-C schedule families and correlate endpoints"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp6_run>/config.json",
+          "outputs/runs/<Exp6_run>/metrics.csv",
+          "outputs/runs/<Exp6_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp6_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp6"
+      ]
+    },
+    {
+      "id": "Exp7",
+      "title": "Optimal constant step near h=1",
+      "status": "complete",
+      "implemented_paths": [
+        "run_all_experiments.sh:HS grid"
+      ],
+      "acceptance_criteria": [
+        "Dense log-grid around h=1",
+        "Report contraction-per-layer and uncertainty for optimum region"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp7_run>/config.json",
+          "outputs/runs/<Exp7_run>/metrics.csv",
+          "outputs/runs/<Exp7_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp7_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp7"
+      ]
+    },
+    {
+      "id": "Exp8",
+      "title": "Two-phase schedules",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Implement piecewise h_k schedules",
+        "Compare entrance speed vs persistence tradeoff"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp8_run>/config.json",
+          "outputs/runs/<Exp8_run>/metrics.csv",
+          "outputs/runs/<Exp8_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp8_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp8"
+      ]
+    },
+    {
+      "id": "Exp9",
+      "title": "Deformed query-key geometry",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Support W_Q/W_K (or G metric) in similarity computation",
+        "Report Euclidean vs G-geometry clustering metrics"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp9_run>/config.json",
+          "outputs/runs/<Exp9_run>/metrics.csv",
+          "outputs/runs/<Exp9_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp9_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp9"
+      ]
+    },
+    {
+      "id": "Exp10",
+      "title": "Value-output contraction vs shear",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Support configurable R=W_VW_O families",
+        "Measure collapse-preserving vs collapse-breaking transitions"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp10_run>/config.json",
+          "outputs/runs/<Exp10_run>/metrics.csv",
+          "outputs/runs/<Exp10_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp10_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp10"
+      ]
+    },
+    {
+      "id": "Exp11",
+      "title": "Mask ablations",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Implement full/causal/window/block-sparse masks",
+        "Compare contraction and escape scales across masks"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp11_run>/config.json",
+          "outputs/runs/<Exp11_run>/metrics.csv",
+          "outputs/runs/<Exp11_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp11_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp11"
+      ]
+    },
+    {
+      "id": "Exp12",
+      "title": "LayerNorm/normalization effects",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Support no norm / spherical / LayerNorm / RMSNorm variants",
+        "Report rank + diameter + low-rank distance"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp12_run>/config.json",
+          "outputs/runs/<Exp12_run>/metrics.csv",
+          "outputs/runs/<Exp12_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp12_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp12"
+      ]
+    },
+    {
+      "id": "Exp13",
+      "title": "Trained tiny transformers on clustered tasks",
+      "status": "partial",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Train tiny decoder-only models on synthetic clustered tasks",
+        "Probe layerwise hidden states and attention statistics"
+      ],
+      "gaps": [
+        "Implemented via surrogate train/probe path; full tiny-transformer training stack remains future hardening item."
+      ],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp13_run>/config.json",
+          "outputs/runs/<Exp13_run>/metrics.csv",
+          "outputs/runs/<Exp13_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp13_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp13"
+      ]
+    },
+    {
+      "id": "Exp14",
+      "title": "Depth-efficiency vs residual scale",
+      "status": "partial",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Train model families with varied residual scales",
+        "Quantify task loss vs collapse tradeoff"
+      ],
+      "gaps": [
+        "Implemented via surrogate train/probe path; full tiny-transformer training stack remains future hardening item."
+      ],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp14_run>/config.json",
+          "outputs/runs/<Exp14_run>/metrics.csv",
+          "outputs/runs/<Exp14_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp14_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp14"
+      ]
+    },
+    {
+      "id": "Exp15",
+      "title": "Attention sinks and collapse-countering behavior",
+      "status": "partial",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Long-context probing with sink perturbation controls",
+        "Track sink attention mass and collapse metrics"
+      ],
+      "gaps": [
+        "Implemented via surrogate train/probe path; full tiny-transformer training stack remains future hardening item."
+      ],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp15_run>/config.json",
+          "outputs/runs/<Exp15_run>/metrics.csv",
+          "outputs/runs/<Exp15_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp15_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp15"
+      ]
+    },
+    {
+      "id": "Exp16",
+      "title": "Skip/gating ablation",
+      "status": "partial",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Compare standard residual vs learned scalar vs gated residual",
+        "Report collapse metric + task performance"
+      ],
+      "gaps": [
+        "Implemented via surrogate train/probe path; full tiny-transformer training stack remains future hardening item."
+      ],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<Exp16_run>/config.json",
+          "outputs/runs/<Exp16_run>/metrics.csv",
+          "outputs/runs/<Exp16_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_Exp16_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=Exp16"
+      ]
+    },
+    {
+      "id": "G1",
+      "title": "Random/non-separated baseline control",
+      "status": "complete",
+      "implemented_paths": [],
+      "acceptance_criteria": [
+        "Add non-separated/random init mode",
+        "Baseline comparison integrated in all core scaling analyses"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<G1_run>/config.json",
+          "outputs/runs/<G1_run>/metrics.csv",
+          "outputs/runs/<G1_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_G1_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=G1"
+      ]
+    },
+    {
+      "id": "G2",
+      "title": "Initialization spread sensitivity",
+      "status": "complete",
+      "implemented_paths": [
+        "run_all_experiments.sh:EPSILON env",
+        "scripts/run_experiment.py:--epsilon"
+      ],
+      "acceptance_criteria": [
+        "Sweep epsilon at fixed (beta, alpha, h)",
+        "Produce sensitivity table/plot and uncertainty"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<G2_run>/config.json",
+          "outputs/runs/<G2_run>/metrics.csv",
+          "outputs/runs/<G2_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_G2_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=G2"
+      ]
+    },
+    {
+      "id": "G3",
+      "title": "Finite-size n effects",
+      "status": "complete",
+      "implemented_paths": [
+        "run_all_experiments.sh:N env",
+        "scripts/run_experiment.py:--n"
+      ],
+      "acceptance_criteria": [
+        "Systematic n sweep and scaling diagnostics",
+        "Report finite-size robustness of entrance/escape trends"
+      ],
+      "gaps": [],
+      "required_outputs": {
+        "run_level": [
+          "outputs/runs/<G3_run>/config.json",
+          "outputs/runs/<G3_run>/metrics.csv",
+          "outputs/runs/<G3_run>/summary.json"
+        ],
+        "analysis_common": [
+          "analysis/tables/table_all_runs.csv",
+          "analysis/tables/table_experiment_summary.csv",
+          "analysis/results_summary.md",
+          "analysis/artifact_manifest.json"
+        ],
+        "analysis_specific_any_of": [
+          "analysis/figs/fig_G3_endpoints.csv"
+        ]
+      },
+      "validator_checks": [
+        "scripts/validate_config_matrix.py",
+        "scripts/validate_status_json.py",
+        "scripts/validate_analysis_outputs.py",
+        "make release-check",
+        "status-summary contains experiment_id=G3"
+      ]
+    }
+  ]
+}
