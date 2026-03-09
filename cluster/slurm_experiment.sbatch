@@ -10,6 +10,7 @@ JOB_SCRIPT=${JOB_SCRIPT:?JOB_SCRIPT not set}
 RUN_NAME=${RUN_NAME:-run}
 REQUIRE_GPU=${REQUIRE_GPU:-1}
 REQUIRE_TORCH=${REQUIRE_TORCH:-0}
+DEVICE=${DEVICE:-cuda}
 ATTEMPT=${ATTEMPT:-0}
 ENABLE_OOM_RETRY=${ENABLE_OOM_RETRY:-0}
 OOM_RETRY_MAX=${OOM_RETRY_MAX:-2}
@@ -26,7 +27,7 @@ RUN_SUMMARY="outputs/runs/${RUN_NAME}/summary.json"
 
 
 echo "[slurm] host=$(hostname) job_id=${JOB_ID} run=${RUN_NAME} attempt=${ATTEMPT}"
-echo "[slurm] cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unset}"
+echo "[slurm] device=${DEVICE} cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unset}"
 
 if command -v nvidia-smi >/dev/null 2>&1; then
   {

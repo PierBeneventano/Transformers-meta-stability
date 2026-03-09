@@ -13,7 +13,9 @@ CONSTRAINT=${CONSTRAINT:-}
 TIME_LIMIT=${TIME_LIMIT:-02:00:00}
 CPUS=${CPUS:-4}
 MEM=${MEM:-16G}
-GRES=${GRES:-gpu:1}
+GPUS=${GPUS:-1}
+GRES=${GRES:-}
+DEVICE=${DEVICE:-cuda}
 OUT_ROOT=${OUT_ROOT:-$ROOT/outputs/runs}
 MIN_FREE_GB=${MIN_FREE_GB:-2}
 EXPERIMENT_IDS=${EXPERIMENT_IDS:-""}
@@ -33,6 +35,24 @@ if [[ "$REQUIRE_GPU" == "auto" ]]; then
     REQUIRE_GPU=1
   else
     REQUIRE_GPU=0
+  fi
+fi
+
+# GPU request normalization:
+# - GPUS=<n> is accepted for compatibility with cluster habits
+# - explicit GRES wins; otherwise derive GRES from GPUS
+if [[ -z "$GRES" ]]; then
+  if [[ -n "$GPUS" && "$GPUS" != "0" ]]; then
+    GRES="gpu:${GPUS}"
+  else
+    GRES=""
+  fi
+fi
+
+if [[ "$MODE" == "slurm" && "$REQUIRE_GPU" == "1" ]]; then
+  if [[ -z "$GRES" ]]; then
+    echo "[slurm:FAIL] GPU required but no GPU resources requested. Set GPUS (e.g. GPUS=1) or GRES (e.g. GRES=gpu:1)." >&2
+    exit 2
   fi
 fi
 
@@ -97,14 +117,14 @@ submit_slurm () {
     --time="$TIME_LIMIT"
     --cpus-per-task="$CPUS"
     --mem="$mem_sel"
-    --gres="$gres_sel"
   )
+  [[ -n "$gres_sel" ]] && sb_args+=(--gres="$gres_sel")
   [[ -n "$ACCOUNT" ]] && sb_args+=(--account="$ACCOUNT")
   [[ -n "$QOS" ]] && sb_args+=(--qos="$QOS")
   [[ -n "$CONSTRAINT" ]] && sb_args+=(--constraint="$CONSTRAINT")
 
   local raw
-  raw=$(sbatch "${sb_args[@]}" --export=ALL,ROOT="$ROOT",RUN_NAME="$run_name",JOB_SCRIPT="$job_script",REQUIRE_GPU="$REQUIRE_GPU",REQUIRE_TORCH="$REQUIRE_TORCH",ATTEMPT="$attempt",ENABLE_OOM_RETRY="$ENABLE_OOM_RETRY",OOM_RETRY_MAX="$OOM_RETRY_MAX" cluster/slurm_experiment.sbatch)
+  raw=$(sbatch "${sb_args[@]}" --export=ALL,ROOT="$ROOT",RUN_NAME="$run_name",JOB_SCRIPT="$job_script",REQUIRE_GPU="$REQUIRE_GPU",REQUIRE_TORCH="$REQUIRE_TORCH",DEVICE="$DEVICE",ATTEMPT="$attempt",ENABLE_OOM_RETRY="$ENABLE_OOM_RETRY",OOM_RETRY_MAX="$OOM_RETRY_MAX" cluster/slurm_experiment.sbatch)
   local jobid
   jobid=$(echo "$raw" | cut -d';' -f1 | tr -d '[:space:]')
   if [[ -z "$jobid" ]]; then
@@ -133,6 +153,7 @@ submit_slurm () {
       echo '#!/usr/bin/env bash'
       echo 'set -euo pipefail'
       echo "cd '$ROOT'"
+      echo "export DEVICE='$DEVICE'"
       echo "$command"
       echo "python3 scripts/postflight_check.py --run-dir '$out_dir'"
     } > "$job_script"

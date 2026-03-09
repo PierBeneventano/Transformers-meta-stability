@@ -71,8 +71,10 @@ make sample-proof
   - `ACCOUNT` (optional)
   - `QOS` (optional)
   - `CONSTRAINT` (optional)
-  - `GRES` (default `gpu:1`)
+  - `GPUS` (default `1`; translated to `GRES=gpu:<GPUS>` if `GRES` not set)
+  - `GRES` (optional explicit override)
   - `CPUS`, `MEM`, `TIME_LIMIT`
+  - `DEVICE` (default `cuda`, exported into jobs)
 - Selection:
   - `EXPERIMENT_IDS` (subset)
   - `MAX_VARIANTS_PER_EXP` (cap for smoke runs)
@@ -90,6 +92,12 @@ Example subset run:
 
 ```bash
 make launch-slurm EXPERIMENT_IDS="Exp1 Exp2 Exp3 G1" MAX_VARIANTS_PER_EXP=1
+```
+
+Cluster-style direct launch example:
+
+```bash
+SEEDS="11" MODE=slurm DEVICE=cuda PARTITION=mit_normal_gpu GPUS=1 CPUS=8 MEM=32G TIME_LIMIT=06:00:00 DATA_ROOT="$PWD/data" OUT_ROOT="$PWD/outputs/runs" ./run_all_experiments.sh
 ```
 
 ### Exp13–Exp16 fidelity tiers

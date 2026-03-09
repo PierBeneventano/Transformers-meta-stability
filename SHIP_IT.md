@@ -45,7 +45,13 @@ make launch-slurm EXPERIMENT_IDS="Exp1 Exp2 Exp3 G1" MAX_VARIANTS_PER_EXP=1
 Resource overrides example:
 
 ```bash
-PARTITION=gpu ACCOUNT=<acct> QOS=<qos> GRES=gpu:1 CPUS=8 MEM=32G TIME_LIMIT=04:00:00 make launch-slurm
+PARTITION=gpu ACCOUNT=<acct> QOS=<qos> GPUS=1 CPUS=8 MEM=32G TIME_LIMIT=04:00:00 make launch-slurm
+```
+
+Calibration-style direct launch example:
+
+```bash
+SEEDS="11" MODE=slurm DEVICE=cuda PARTITION=mit_normal_gpu GPUS=1 CPUS=8 MEM=32G TIME_LIMIT=06:00:00 DATA_ROOT="$PWD/data" OUT_ROOT="$PWD/outputs/runs" ./run_all_experiments.sh
 ```
 
 Optional OOM retry profile (across relaunches):
