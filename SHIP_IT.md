@@ -13,7 +13,7 @@
 ```bash
 cd transformer-experiments
 make bootstrap
-source .venv/bin/activate
+conda activate ./transformers-meta-stability
 ```
 
 ---

@@ -26,7 +26,8 @@ Spec lock:
 ```bash
 cd transformer-experiments
 make bootstrap
-source .venv/bin/activate
+# default bootstrap creates a conda env at ./transformers-meta-stability
+conda activate ./transformers-meta-stability
 
 # validates slurm-mode prerequisites + GPU visibility
 make preflight-slurm
@@ -51,7 +52,7 @@ make release-check
 ```bash
 cd transformer-experiments
 make bootstrap
-source .venv/bin/activate
+conda activate ./transformers-meta-stability
 
 make preflight
 make sample-proof
@@ -100,7 +101,7 @@ Run Stage-B example:
 
 ```bash
 make bootstrap INSTALL_TORCH=1
-source .venv/bin/activate
+conda activate ./transformers-meta-stability
 MODE=local CONFIG=configs/experiments_full_fidelity.yaml ./run_all_experiments.sh
 make analysis
 ```
