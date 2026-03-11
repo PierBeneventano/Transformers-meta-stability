@@ -19,6 +19,9 @@ Spec lock:
 - `docs/EXPERIMENT_SPEC.md`
 - `docs/EXPERIMENT_SPEC.sha256`
 
+Paper-aligned experiment guide:
+- `docs/EXPERIMENTS_FROM_PAPER_EXPLAINED.md`
+
 ---
 
 ## Quick start (cluster)
